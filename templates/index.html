@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Data Analyst</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* Header Styles */
+    .header {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 30px;
+      animation: slideDown 0.5s ease-out;
+    }
+
+    .header-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .header-content h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 5px;
+    }
+
+    .header-content p {
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    /* Alert Styles */
+    .alert {
+      padding: 16px 20px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      animation: slideDown 0.4s ease-out;
+    }
+
+    .alert-error {
+      background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+      border-left: 4px solid #dc2626;
+      color: #991b1b;
+    }
+
+    .alert-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    /* Form Styles */
+    .form-container {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+      animation: slideUp 0.5s ease-out;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .form-label {
+      display: block;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 10px;
+      font-size: 15px;
+    }
+
+    .form-input,
+    .form-textarea,
+    .form-file {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #e5e7eb;
+      border-radius: 10px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus,
+    .form-file:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      background: #f8f9ff;
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 14px 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    /* Section Styles */
+    .section {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      margin-bottom: 25px;
+      animation: slideUp 0.5s ease-out;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-icon {
+      font-size: 24px;
+    }
+
+    /* Table Styles */
+    .table-wrapper {
+      overflow-x: auto;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+      padding: 15px;
+      text-align: left;
+      font-weight: 600;
+      color: #374151;
+      border-bottom: 2px solid #d1d5db;
+      font-size: 14px;
+    }
+
+    td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #e5e7eb;
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    tr:hover {
+      background: #f9fafb;
+    }
+
+    /* Code Block Styles */
+    .code-block {
+      background: #1f2937;
+      padding: 25px;
+      border-radius: 12px;
+      overflow-x: auto;
+      border-left: 4px solid #667eea;
+    }
+
+    .code-block pre {
+      margin: 0;
+      color: #10b981;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .code-block code {
+      color: #10b981;
+    }
+
+    /* Animations */
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      body {
+        padding: 15px;
+      }
+
+      .header {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+      }
+
+      .header-content h1 {
+        font-size: 24px;
+      }
+
+      .form-container,
+      .section {
+        padding: 20px;
+      }
+
+      .submit-btn {
+        font-size: 15px;
+        padding: 12px;
+      }
+
+      th, td {
+        padding: 10px;
+        font-size: 13px;
+      }
+    }
+
+    /* File Input Styling */
+    input[type="file"] {
+      cursor: pointer;
+    }
+
+    input[type="file"]::file-selector-button {
+      background: #667eea;
+      color: white;
+      padding: 8px 15px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      margin-right: 10px;
+      transition: all 0.3s ease;
+    }
+
+    input[type="file"]::file-selector-button:hover {
+      background: #764ba2;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #667eea;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #764ba2;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="header-icon">📊</div>
+      <div class="header-content">
+        <h1>AI Data Analyst</h1>
+        <p>Ask smart questions about your uploaded datasets with ease.</p>
+      </div>
+    </div>
+
+    <!-- Message Alert -->
+    {% if message %}
+      <div class="alert alert-error">
+        <span class="alert-icon">⚠️</span>
+        <div>
+          <strong>Error:</strong> {{ message }}
+        </div>
+      </div>
+    {% endif %}
+
+    <!-- Upload & Query Form -->
+    <form method="POST" enctype="multipart/form-data" class="form-container">
+      <div class="form-group">
+        <label class="form-label">🔐 API Key</label>
+        <input type="password" name="api_key" placeholder="Enter your API Key" class="form-input" required />
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">📁 Upload Dataset (CSV or Excel)</label>
+        <input type="file" name="file" accept=".csv,.xlsx" class="form-file" required />
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">❓ Ask Your Question</label>
+        <textarea name="query" placeholder="e.g. What is the average price by category?" class="form-textarea"></textarea>
+      </div>
+      
+      <button type="submit" class="submit-btn">
+        <span>🚀</span> Analyze Data
+      </button>
+    </form>
+
+    <!-- Data Preview -->
+    {% if df_preview_html %}
+      <div class="section">
+        <div class="section-title">
+          <span class="section-icon">👁️</span>
+          Preview: First 5 Rows
+        </div>
+        <div class="table-wrapper">
+          {{ df_preview_html | safe }}
+        </div>
+      </div>
+    {% endif %}
+
+    <!-- Generated Code -->
+    {% if code_generated %}
+      <div class="section">
+        <div class="section-title">
+          <span class="section-icon">🧠</span>
+          Generated Pandas Code
+        </div>
+        <div class="code-block">
+          <pre><code>{{ code_generated }}</code></pre>
+        </div>
+      </div>
+    {% endif %}
+
+    <!-- Result -->
+    {% if result_html %}
+      <div class="section">
+        <div class="section-title">
+          <span class="section-icon">✅</span>
+          Analysis Result
+        </div>
+        <div class="table-wrapper">
+          {{ result_html | safe }}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
